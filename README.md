@@ -1,30 +1,13 @@
-# React + TypeScript + Vite
+## Android Setup & Build
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Follow [Capacitor's](https://capacitorjs.com/docs/basics/workflow) instructions to add Android support. It will generate the android folder.
+- Install JDK 17 and `chmod -R 777` it. Other versions may not work.
+- Make sure the android/local.properties file has `sdk.dir=/usr/lib/android-sdk`. Create it if not exists.
+- Run the NPM build:android command (make sure the `JAVA_HOME` env variable export points to the correct JDK folder)
 
-Currently, two official plugins are available:
+If having issues with licenses:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Go to android-sdk/tools/bin (or android-sdk/cmdline-tools/bin) and run `./sdkmanager --licenses`.
+- If your Android SDK installation did not come with cmdline-tools, download it [here](https://developer.android.com/tools/sdkmanager) and extract it inside the Android SDK folder.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+The .apk file will be generated at /android/app/build/outputs/apk.
