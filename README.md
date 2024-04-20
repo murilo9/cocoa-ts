@@ -11,3 +11,9 @@ If having issues with licenses:
 - If your Android SDK installation did not come with cmdline-tools, download it [here](https://developer.android.com/tools/sdkmanager) and extract it inside the Android SDK folder.
 
 The .apk file will be generated at /android/app/build/outputs/apk.
+
+## Electron Steup
+
+- Make sure the project is builded. Test the application with the `start:electron` script.
+- Import the makers with `npx electron-forge import`, if they are not yet imported.
+- Run the make script to generate the distributables (they are defined at forge.config.js). It will be at 'out' folder.

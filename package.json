@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "main": "electron/main.cjs",
+  "author": "Name",
   "description": "A game made with Cocoa TS engine",
   "scripts": {
     "dev": "vite",
