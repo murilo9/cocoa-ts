@@ -16,4 +16,4 @@ The .apk file will be generated at /android/app/build/outputs/apk.
 
 - Make sure the project is builded. Test the application with the `start:electron` script.
 - Import the makers with `npx electron-forge import`, if they are not yet imported.
-- Run the make script to generate the distributables (they are defined at forge.config.js). It will be at 'out' folder.
+- Run the `build:electron` script to generate the distributables (they are defined at forge.config.js). It will be at 'out' folder.
