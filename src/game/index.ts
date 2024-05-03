@@ -3,12 +3,12 @@ import { Player } from "./classes/Player";
 import { Pillar } from "./classes/Pillar";
 import { System } from "detect-collisions";
 import { debug } from "./debug";
-import { InitialRoomUI } from "./ui/InitialRoomUI";
 import { Game } from "../lib/Game";
 import { GameConfig } from "../lib/GameConfig";
 import { Room } from "../lib/Room";
 import { SpriteSet } from "../lib/SpriteSet";
 
+/* Game config definition */
 const gameConfig: GameConfig = {
   screenWidth: window.outerWidth,
   screenHeight: window.innerHeight,
@@ -16,6 +16,7 @@ const gameConfig: GameConfig = {
   canvasBackgroundColor: "#CCCCCC",
 };
 
+/* Spritesets definition */
 const spriteSet1 = new SpriteSet(mainSpriteSet, {
   playerIdle: [128, 16, 128 + 16, 32],
   playerStep1: [144, 16, 144 + 16, 32],
@@ -30,6 +31,8 @@ const spriteSet1 = new SpriteSet(mainSpriteSet, {
 const spriteSets = {
   spriteSet1,
 };
+
+/* Room initial entities definition */
 const roomInitialEntities = [
   new Player(10, 10, 10, 10, 10, 10, 10),
   new Pillar({ x: -100, y: 100 }),
@@ -37,11 +40,14 @@ const roomInitialEntities = [
   new Pillar({ x: 100, y: 100 }),
   new Pillar({ x: 100, y: -100 }),
 ];
-const initialRoom = new Room(
-  { environment: new System() },
-  new InitialRoomUI()
-).appendEntities(roomInitialEntities, "environment");
 
+/* Initial room definition */
+const initialRoom = new Room({ environment: new System() }).appendEntities(
+  roomInitialEntities,
+  "environment"
+);
+
+/* Function that actually initializes the game (will be called by the React app's useEffect) */
 export const init = () => {
   Game.setup(initialRoom, spriteSets, gameConfig, debug);
   Game.start();

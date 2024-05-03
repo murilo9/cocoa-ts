@@ -73,6 +73,7 @@ export class Game {
     document.body.appendChild(this.canvas);
     this.debugLog("Game constructor: room", this.currentRoom);
     this.debugLog("Game constructor: spriteSets", this.spriteSets);
+    this.currentRoom.onInit();
     this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
     const self = this;
     window.addEventListener("resize", () => {
@@ -83,6 +84,11 @@ export class Game {
       self.canvas.width = window.innerWidth;
       self.canvas.height = window.innerHeight;
     });
+  }
+
+  public static setCurrentRoom(room: Room) {
+    this.currentRoom.onUnmount();
+    this.currentRoom = room;
   }
 
   private static cycle() {

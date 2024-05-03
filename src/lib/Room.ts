@@ -2,26 +2,27 @@ import { System } from "detect-collisions";
 import { Entity } from "./Entity";
 import { v4 as uuid } from "uuid";
 import { Collider } from "./Collider";
-import { UI } from "./UI";
 
 export class Room {
   private entities: Entity[];
   private collisionSystems: {
     [name: string]: System;
   };
-  public ui: UI;
 
   constructor(
     collisionSystems: {
       [name: string]: System;
-    } = {},
-    ui = new UI()
+    } = {}
   ) {
     this.entities = [];
     this.collisionSystems = collisionSystems;
-    this.ui = ui;
-    ui.init();
   }
+
+  /* Called just before room is set as Game's current room */
+  public onInit() {}
+
+  /* Called just before room is set out as Game's current room */
+  public onUnmount() {}
 
   public getEntities() {
     return this.entities;
