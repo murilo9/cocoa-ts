@@ -2,6 +2,7 @@ import { System } from "detect-collisions";
 import { Room } from "../../lib/Room";
 import { Pillar } from "../classes/Pillar";
 import { Player } from "../classes/Player";
+import { Button } from "@mui/joy";
 
 /* Room initial entities definition */
 const roomInitialEntities = [
@@ -15,7 +16,7 @@ const roomInitialEntities = [
 function Room1UI() {
   return (
     <>
-      <button>Fancy button</button>
+      <Button>Fancy button</Button>
     </>
   );
 }
