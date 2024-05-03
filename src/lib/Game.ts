@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
+import { createRoot } from "react-dom/client";
 import { Camera } from "./Camera";
 import { Collider, ColliderBody } from "./Collider";
 import { Debug } from "./Debug";
@@ -62,7 +63,6 @@ export class Game {
       canvasElementId,
       canvasBackgroundColor,
     } = config;
-    this.currentRoom = initialRoom;
     this.spriteSets = spriteSets;
     this.debug = debug;
     this.canvas = document.createElement("canvas");
@@ -71,9 +71,8 @@ export class Game {
     this.canvas.height = this.screenHeight = screenHeight;
     this.canvas.style.background = canvasBackgroundColor;
     document.body.appendChild(this.canvas);
-    this.debugLog("Game constructor: room", this.currentRoom);
+    this.setCurrentRoom(initialRoom);
     this.debugLog("Game constructor: spriteSets", this.spriteSets);
-    this.currentRoom.onInit();
     this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
     const self = this;
     window.addEventListener("resize", () => {
@@ -86,9 +85,38 @@ export class Game {
     });
   }
 
-  public static setCurrentRoom(room: Room) {
-    this.currentRoom.onUnmount();
-    this.currentRoom = room;
+  public static setCurrentRoom(room: Room | null) {
+    // If a current room exists, execute its unmount method and removes its HTML element
+    if (this.currentRoom) {
+      this.currentRoom.onUnmount();
+      const oldRoomUi = document.getElementById("room-ui");
+      if (oldRoomUi) {
+        oldRoomUi.remove();
+      }
+    }
+    if (room) {
+      // Removes current room's UI HTMLElement, if it exists
+      const roomUi = document.getElementById("room-ui");
+      if (roomUi) {
+        roomUi.remove();
+      }
+      // Creates the HTML element fo the new room, with proper styles
+      const newRoomUi = document.createElement("div");
+      newRoomUi.id = "room-ui";
+      (newRoomUi.style.position = "absolute"), (newRoomUi.style.top = "0");
+      newRoomUi.style.left = "0";
+      newRoomUi.style.width = "100vw";
+      newRoomUi.style.height = "100vh";
+      // Appends the new room's HTML element to the body
+      document.body.appendChild(newRoomUi);
+      // Makes React render the current room's HTML element
+      createRoot(document.getElementById("room-ui")!).render(room.getUi());
+      // Actually sets the new room as current room
+      this.currentRoom = room;
+      // Executes the new current room's onInit method
+      this.currentRoom.onInit();
+      this.debugLog("Game constructor: room", this.currentRoom);
+    }
   }
 
   private static cycle() {
@@ -282,7 +310,16 @@ export class Game {
     }, CYCLES_MS);
   }
 
+  /* Exits the game */
   public static exit() {
+    // Stops the cycle interval
     clearInterval(this.cycleInterval);
+    // Sets out current room
+    this.setCurrentRoom(null);
+    // Removes the game canvas
+    const gameCanvas = document.getElementById("game-canvas");
+    if (gameCanvas) {
+      gameCanvas.remove();
+    }
   }
 }

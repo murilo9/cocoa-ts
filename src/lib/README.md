@@ -56,6 +56,12 @@ In order to build a game:
 
 ### Game lifecycle
 
+The _main.tsx_ file will render _App.tsx_, which will call your game's `init` function (and call your game's `exit` function once it unmounts).
+Your game's init function should call Game's `setup` method passing the config, spritesets and rooms definitions, then call Game's `start` method.
+The Game's `setup` method will initiate the canvas. The Game's `start` method will initialize the rendering cycles. The Game's `exit` method will stop the rendering cycle and make memory clearing operations (removing game's HTML elements).
+
+#### Detailed lifecycle
+
 The game will initiate the HTML canvas at the element with "game-canvas" id. Then the game instance start method will initialize all entities inside the initial room by calling their onInit methods. Finally the game instance will call its cycle method each 16 ms. The game instance exit method will clear the cycle interval, preventing the cycles from running.
 Each game cycle will:
 
@@ -68,27 +74,4 @@ Each game cycle will:
 
 ### How does UI work
 
-Every Room has a public UI instance, which is defined in the Room's constructor. To build the UI of a Room, create a MyRoomUI class that extends the UI class. Inside MyRoomUI class init method, get the element instance, append any HTMLElement(s) into it (through the appendChild method) and call the setElement method:
-
-```js
-const myButton = document.createElement("button");
-myButton.innerHTML = "My Button";
-myButton.onclick = () => {
-  console.log("clicked myButton");
-};
-const myHeader = document.createElement("h1");
-myHeader.innerHTML = "My Header";
-myHeader.style.color = "green";
-
-export class MyRoomUI extends UI {
-  public init(): void {
-    const updatedUiElement = this.getElement();
-    updatedUiElement.appendChild(myButton);
-    updatedUiElement.appendChild(myHeader);
-    // Finally, update the UI element
-    this.setElement(updatedUiElement);
-  }
-}
-```
-
-Once MyRoom inits, it will render the contents of its UI.
+Each room has a private `ui` property, which is a ReactNode. Once a room is set as Game's current room, a HTML element will be created in order to render the room's `ui`.
