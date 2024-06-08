@@ -115,6 +115,7 @@ export class Player extends Collider implements CreatureBase {
         sprite.animation.setFrameIndex(0);
       }
     });
+    Input.addKeyListener("press", "g", () => console.log("G pressed"));
   }
 
   onRun() {

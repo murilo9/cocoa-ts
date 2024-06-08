@@ -1,3 +1,5 @@
+import { Dictionary } from "./Dictionary";
+
 interface InputAxisSetup {
   upKey: string;
   downKey: string;
@@ -6,52 +8,35 @@ interface InputAxisSetup {
 }
 
 type InputAxisListener = (axis: { x: number; y: number }) => unknown;
+type KeyListener = () => unknown;
 
 interface InputAxis {
   x: number;
   y: number;
   setup: InputAxisSetup;
-  listeners: Function[];
+  listeners: InputAxisListener[];
 }
 
 export class Input {
   private static axis1: InputAxis;
   private static axis2: InputAxis;
-  private static A: boolean;
-  private static B: boolean;
-  private static C: boolean;
-  private static D: boolean;
-  private static R1: boolean;
-  private static R2: boolean;
-  private static L1: boolean;
-  private static L2: boolean;
-  private static START: boolean;
-  private static SELECT: boolean;
-  private static CTRL: boolean;
-  private static L_CTRL: boolean;
-  private static R_CTRL: boolean;
-  private static ALT: boolean;
-  private static L_ALT: boolean;
-  private static R_ALT: boolean;
-  private static SHIFT: boolean;
-  private static L_SHIFT: boolean;
-  private static R_SHIFT: boolean;
+  private static keyPressListeners: Dictionary<KeyListener[] | undefined>;
+  private static keyReleaseListeners: Dictionary<KeyListener[] | undefined>;
 
   static handleKeyPress(key: string) {
     // Verifies if axis1 changed
-    if (
-      key.match(
-        new RegExp(
-          this.axis1.setup.downKey +
-            "|" +
-            this.axis1.setup.upKey +
-            "|" +
-            this.axis1.setup.leftKey +
-            "|" +
-            this.axis1.setup.rightKey
-        )
+    const axis1Match = key.match(
+      new RegExp(
+        this.axis1.setup.downKey +
+          "|" +
+          this.axis1.setup.upKey +
+          "|" +
+          this.axis1.setup.leftKey +
+          "|" +
+          this.axis1.setup.rightKey
       )
-    ) {
+    );
+    if (axis1Match) {
       // Updates axis status
       const { downKey, leftKey, rightKey, upKey } = this.axis1.setup;
       const pressedLeft = key === leftKey ? -1 : 0;
@@ -66,38 +51,23 @@ export class Input {
         listener({ x: this.axis1.x, y: this.axis1.y });
       });
     }
-  }
-
-  private static roundAxis1() {
-    if (this.axis1.x > 1) {
-      this.axis1.x = 1;
-    }
-    if (this.axis1.x < -1) {
-      this.axis1.x = -1;
-    }
-    if (this.axis1.y > 1) {
-      this.axis1.y = 1;
-    }
-    if (this.axis1.y < -1) {
-      this.axis1.y = -1;
-    }
+    this.keyPressListeners[key]?.forEach((handler) => handler());
   }
 
   static handleKeyRelease(key: string) {
     // Verifies if axis1 changed
-    if (
-      key.match(
-        new RegExp(
-          this.axis1.setup.downKey +
-            "|" +
-            this.axis1.setup.upKey +
-            "|" +
-            this.axis1.setup.leftKey +
-            "|" +
-            this.axis1.setup.rightKey
-        )
+    const axis1Match = key.match(
+      new RegExp(
+        this.axis1.setup.downKey +
+          "|" +
+          this.axis1.setup.upKey +
+          "|" +
+          this.axis1.setup.leftKey +
+          "|" +
+          this.axis1.setup.rightKey
       )
-    ) {
+    );
+    if (axis1Match) {
       // Updates axis status
       const { downKey, leftKey, rightKey, upKey } = this.axis1.setup;
       const releasedLeft = key === leftKey ? 1 : 0;
@@ -111,6 +81,25 @@ export class Input {
       this.axis1.listeners.forEach((listener) => {
         listener({ x: this.axis1.x, y: this.axis1.y });
       });
+    }
+    this.keyReleaseListeners[key]?.forEach((handler) => handler());
+  }
+
+  /**
+   * Makes sure the axis don't get modular values greater than 1
+   */
+  private static roundAxis1() {
+    if (this.axis1.x > 1) {
+      this.axis1.x = 1;
+    }
+    if (this.axis1.x < -1) {
+      this.axis1.x = -1;
+    }
+    if (this.axis1.y > 1) {
+      this.axis1.y = 1;
+    }
+    if (this.axis1.y < -1) {
+      this.axis1.y = -1;
     }
   }
 
@@ -138,16 +127,16 @@ export class Input {
       },
       listeners: [],
     };
+    this.keyPressListeners = {};
+    this.keyReleaseListeners = {};
     // Sets up handlers for keyboard event listeners
     window.onkeydown = (event: KeyboardEvent) => {
       if (event.repeat) {
         return;
       }
-      console.log("key down", event.key);
       this.handleKeyPress(event.key);
     };
     window.onkeyup = (event: KeyboardEvent) => {
-      console.log("key up", event.key);
       this.handleKeyRelease(event.key);
     };
   }
@@ -158,5 +147,26 @@ export class Input {
    */
   public static addAxis1Listener(listener: InputAxisListener) {
     this.axis1.listeners.push(listener);
+  }
+
+  public static addKeyListener(
+    action: "press" | "release",
+    key: string,
+    listener: () => unknown
+  ) {
+    switch (action) {
+      case "press":
+        if (!this.keyPressListeners[key]) {
+          this.keyPressListeners[key] = [];
+        }
+        this.keyPressListeners[key]!.push(listener);
+        break;
+      case "release":
+        if (!this.keyReleaseListeners[key]) {
+          this.keyReleaseListeners[key] = [];
+        }
+        this.keyReleaseListeners[key]!.push(listener);
+        break;
+    }
   }
 }
