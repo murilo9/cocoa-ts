@@ -1,42 +1,169 @@
-## Abilities
+Day/night cycle
+Latitude climate
+Pets
+NPCs mood and phrasing
+Staffs (require gems and gem enchant spell)
 
-- Strenght: defines carry capacity, melee hit chance and melee damage
-- Dexterity: defines armor class, walk speed and ranged hit chance
-- Constitution: defines max HP
-- Intelligence: defines max MP and spells dificulty class
-- Charisma: defines prices and some interactions' success chance, and MP recover speed
+# World generation steps
 
-## NPCs
+1. Generate continents
+2. Polish continents
+3. Add rivers and lakes
+4. Add mines
+5. Add vegetation
 
-- Smith: anvil
-- Fisher: fish trophy
-- Cook: stove
-- Wizard: cauldron
-- Healer: took 10000 HP damage total
-- Tax Collector: have at least 4 NPCs
-- Explorer: 2 rare item (among many) trophies
-- 5 more Commoners (can be hired as combat companions)
+# Combat
 
-## Skills (lvl 1 - 20):
+Damage types:
 
-- Fishing
-- Farming
-- Cooking
-- Alchemy
-- Smithing
-- Crafting
-- Building
+- Slash
+- Blunt
+- Stab
+- Pierce
+- Fire
+- Ice
+- Shock
+  Resistances:
+- Basic (takes 2/3 damage)
+- Heavy (takes 1/3 damage)
+- Invulnerable (takes no damage)
+  Weakenesses:
+- Basic: (takes 4/3 damage)
+- Heavy (takes 5/3 damage)
 
-## Misc:
+# Traits
 
-- Collected taxes amount depends on how people like you
-- Giving gifts can increase people's likelihood
-- Likelihood of people is influenced by their rooms' furniture
+Skills & Feats:
 
-## Spells
+- Athletics (max HP per level increase, carry capacity increase, speed increase, HP regen increase)
+- Planting (extra yield chance increase)
+- Mining (extra yield chance increase)
+- Magic (max MP per level increase, elemental resistance, MP regen increase)
+- Fighting (damage type resistance, damage type bonus, unarmored defense bonus)
+- Sneaking (pickpicket success chance increase, more gold & less items, more items & less gold)
+- Social (chat variety increase, likelihood increase bonus)
 
-- Mark/Teleport
-- Super Speed
-- Super Health
-- Green Finger
-- Supernova
+# Social
+
+You can chat with people in order to increase/decrease their likelihood of you.
+
+# Thieving
+
+You can pickpocket people, with a chance of decreasing their likelihood. A successfull pickpocket can yield items or gold.
+
+# Containers
+
+- Chest
+- Crate
+- Barrel
+- Cupboard
+- Bookcase
+- Wardrobe
+- Drawers
+
+# Lighthing
+
+- Standing torch
+- Wall Torch
+- Table candles
+- Chandelabre
+
+# Furniture
+
+- Bed
+- Double bed
+- Table
+- Stool
+- Chair
+- Fireplace
+- Oven
+- Range
+- Painting
+- Sculpture
+- Rug
+
+# Structure
+
+- Wall
+- Tile
+- Path
+- Well
+- Beehive
+- Fance (wood, stone)
+
+# Mining
+
+- Iron
+- Coal
+- Adamant
+- Gold
+- Silver
+- Gems (amethyst, sapphire, emerald, ruby, diamond)
+
+# Fishing
+
+# Farming
+
+Crops:
+
+- Temperate
+  -- Cabbage
+  -- Carrots
+  -- Strawberry
+  -- Grapes
+  -- Wheat
+  -- Apple (tree)
+  -- Orange (tree)
+  -- Beet (sugar)
+- Warm
+  -- Tomato
+  -- Eggplant
+  -- Strawberry
+  -- Pineapple
+  -- Corn
+  -- Banana (tree)
+  -- Coconut (tree)
+  -- Sugar cane (sugar)
+- Other
+  -- Cocoa (tree)
+  -- Coffee (tree)
+  -- Hops
+- Trees
+  -- Oak (temperate, warm)
+  -- Pine (temperate, cold)
+  -- Birch (warm)
+  -- Mahogany (temperate, warm)
+  -- Spirit (temperate, warm)
+
+# Cooking
+
+- Water (bucket, vial)
+- Meats, eggs, milk, honey
+- Baked vegetables
+- Dishes (from vegetables and/or fruits)
+- Cake (from egg, milk, sugar and wheat/corn flour)
+- Beer (from water, hops and wheat/corn)
+- Coffee (from coffee seeds and water)
+- Chocolate (from milk, sugar and cocoa beans)
+- Wine (from water and grapes)
+- Rum (from water and sugar cane)
+- Mead (from water and honey)
+
+Random events?
+
+Spells (are learned from scrolls):
+
+- Mark
+- Teleport
+- Charm
+- Frenzy
+- Swamp roots
+- Fire bolt (shot)
+- Ice spike (shot)
+- Megavolt (shot)
+- Fireball (circle)
+- Hail (circle)
+- Electric web (circle)
+- Lava wimp (cone)
+- Ice surge (cone)
+- Voltage arc (cone)
