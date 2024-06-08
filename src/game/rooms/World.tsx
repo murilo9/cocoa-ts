@@ -13,7 +13,12 @@ const roomInitialEntities = [
 ];
 
 /* Initial room definition */
-export const Room1 = new Room({ environment: new System() }).appendEntities(
-  roomInitialEntities,
-  "environment"
-);
+
+export class World extends Room {
+  public onInit(): void {
+    this.collisionSystems = {
+      environment: new System(),
+    };
+    this.appendEntities(roomInitialEntities, "environment");
+  }
+}

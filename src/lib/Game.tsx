@@ -9,6 +9,7 @@ import { Drawable } from "./Graphic";
 import { Room } from "./Room";
 import { Frame, SpriteSet } from "./SpriteSet";
 import { Button } from "@mui/joy";
+import { Input } from "./Input";
 
 function GameUI() {
   return (
@@ -72,6 +73,8 @@ export class Game {
       displayDrawIndexes: false,
     }
   ) {
+    // Sets up the Input class
+    Input.setup();
     const {
       screenWidth,
       screenHeight,
@@ -313,10 +316,6 @@ export class Game {
 
   public static start() {
     const self = this;
-    // Initialize room's entities
-    this.currentRoom.getEntities().forEach((entity) => {
-      entity.onInit();
-    });
     // Try to cycle at 60 fps
     this.cycleInterval = setInterval(function () {
       self.cycle();

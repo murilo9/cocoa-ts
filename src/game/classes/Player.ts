@@ -5,6 +5,7 @@ import { Camera } from "../../lib/Camera";
 import { Collider } from "../../lib/Collider";
 import { AnimationSpriteConfig } from "../../lib/Graphic";
 import { Animation } from "../../lib/Animation";
+import { Input } from "../../lib/Input";
 
 const START_POS_X = 250;
 const START_POS_Y = 250;
@@ -21,19 +22,6 @@ export class Player extends Collider implements CreatureBase {
   private level = 1;
   private HP: number;
   private MP: number;
-
-  /* Movement Attributes */
-  private keyPressed: {
-    left: boolean;
-    right: boolean;
-    up: boolean;
-    down: boolean;
-  } = {
-    down: false,
-    left: false,
-    right: false,
-    up: false,
-  };
 
   constructor(
     private strength: number,
@@ -71,8 +59,7 @@ export class Player extends Collider implements CreatureBase {
       },
       new Ellipse({ x: START_POS_X, y: START_POS_Y }, 6, 2)
     );
-    document.addEventListener("keydown", this.handleKey(false));
-    document.addEventListener("keyup", this.handleKey(true));
+    // Attaches camera to the player
     Camera.attach(this);
     // CreatureBase initialziers (attributes)
     this.xp = 0;
@@ -108,43 +95,29 @@ export class Player extends Collider implements CreatureBase {
     this.xp += amount;
   }
 
-  handleKey(up: boolean) {
-    return (event: KeyboardEvent) => {
-      if (event.key === "a") {
-        this.keyPressed.left = !up;
+  onInit(): void {
+    // Move player if keys are pressed
+    Input.addAxis1Listener((axis) => {
+      console.log("axis1 listener", axis);
+      this.xSpeed = axis.x * SPEED;
+      this.ySpeed = -axis.y * SPEED;
+      // Update player direction based on xSpeed direction
+      if (axis.x !== 0) {
+        this.xScale = axis.x * SCALE;
       }
-      if (event.key === "d") {
-        this.keyPressed.right = !up;
+      // Update player animation based on movement
+      const isMoving = axis.x !== 0 || axis.y !== 0;
+      const sprite = this.sprite as AnimationSpriteConfig;
+      if (isMoving) {
+        sprite.animation.setRefreshTime(ANIMATION_TIME);
+      } else {
+        sprite.animation.setRefreshTime(0);
+        sprite.animation.setFrameIndex(0);
       }
-      if (event.key === "s") {
-        this.keyPressed.down = !up;
-      }
-      if (event.key === "w") {
-        this.keyPressed.up = !up;
-      }
-    };
+    });
   }
 
   onRun() {
-    // Move player if keys are pressed
-    const xModule =
-      -Number(this.keyPressed.left) + Number(this.keyPressed.right);
-    const yModule = -Number(this.keyPressed.up) + Number(this.keyPressed.down);
-    this.xSpeed = xModule * SPEED;
-    this.ySpeed = yModule * SPEED;
-    // Update player direction based on xSpeed direction
-    if (xModule !== 0) {
-      this.xScale = xModule * SCALE;
-    }
-    // Update player animation based on movement
-    const isMoving = xModule !== 0 || yModule !== 0;
-    const sprite = this.sprite as AnimationSpriteConfig;
-    if (isMoving) {
-      sprite.animation.setRefreshTime(ANIMATION_TIME);
-    } else {
-      sprite.animation.setRefreshTime(0);
-      sprite.animation.setFrameIndex(0);
-    }
     // Update drawIndex
     this.drawIndex = this.y + this.yPivot;
   }

@@ -4,18 +4,14 @@ import { v4 as uuid } from "uuid";
 import { Collider } from "./Collider";
 
 export class Room {
-  private entities: Entity[];
-  private collisionSystems: {
+  protected entities: Entity[];
+  protected collisionSystems: {
     [name: string]: System;
   };
 
-  constructor(
-    collisionSystems: {
-      [name: string]: System;
-    } = {}
-  ) {
+  constructor() {
     this.entities = [];
-    this.collisionSystems = collisionSystems;
+    this.collisionSystems = {};
   }
 
   /* Called just before room is set as Game's current room */
@@ -49,6 +45,5 @@ export class Room {
         }
       }
     });
-    return this;
   }
 }
