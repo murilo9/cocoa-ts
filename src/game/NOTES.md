@@ -14,12 +14,22 @@ Staffs (require gems and gem enchant spell)
 
 # Combat
 
+Weapons:
+
+- Axe
+- Greataxe
+- Sword
+- Two-handed Sword
+- Mace
+- Wahammer
+- Bow
+- Staff
+
 Damage types:
 
 - Slash
 - Blunt
 - Stab
-- Pierce
 - Fire
 - Ice
 - Shock
@@ -93,6 +103,7 @@ You can pickpocket people, with a chance of decreasing their likelihood. A succe
 
 # Mining
 
+- Stone
 - Iron
 - Coal
 - Adamant
@@ -103,6 +114,11 @@ You can pickpocket people, with a chance of decreasing their likelihood. A succe
 # Fishing
 
 # Farming
+
+Tools:
+
+- Spade
+- Sickle
 
 Crops:
 
@@ -137,6 +153,14 @@ Crops:
 
 # Cooking
 
+Structure:
+
+- Campfire
+- Small range
+- Big range
+
+Crafting:
+
 - Water (bucket, vial)
 - Meats, eggs, milk, honey
 - Baked vegetables
@@ -167,3 +191,16 @@ Spells (are learned from scrolls):
 - Lava wimp (cone)
 - Ice surge (cone)
 - Voltage arc (cone)
+
+# Animals
+
+Structure:
+
+- Trough (where animals eat for reproducing)
+
+Animals:
+
+- Cow (milk)
+- Sheep (wool)
+- Goat (milk)
+- Chicken (egg)
