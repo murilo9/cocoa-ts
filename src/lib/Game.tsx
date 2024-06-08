@@ -8,10 +8,21 @@ import { GameConfig } from "./GameConfig";
 import { Drawable } from "./Graphic";
 import { Room } from "./Room";
 import { Frame, SpriteSet } from "./SpriteSet";
+import { Button } from "@mui/joy";
+
+function GameUI() {
+  return (
+    <>
+      <Button>Fancy button</Button>
+    </>
+  );
+}
 
 const CYCLES_MS = 20;
 
 export class Game {
+  // Game's UI element
+  private static UI: JSX.Element;
   // HTML canvas element, present inside the #game-canvas element
   private static canvas: HTMLCanvasElement;
   // The setInterval ID of the cycle method
@@ -44,6 +55,10 @@ export class Game {
       width: this.screenWidth,
       height: this.screenHeight,
     };
+  }
+
+  public static getUI() {
+    return this.UI;
   }
 
   public static setup(
@@ -83,35 +98,33 @@ export class Game {
       self.canvas.width = window.innerWidth;
       self.canvas.height = window.innerHeight;
     });
+    // Removes game's UI HTMLElement, if it exists
+    const roomUi = document.getElementById("room-ui");
+    if (roomUi) {
+      roomUi.remove();
+    }
+    // Creates the HTML element fo the game's UI, with proper styles
+    const newRoomUi = document.createElement("div");
+    newRoomUi.id = "game-ui";
+    (newRoomUi.style.position = "absolute"), (newRoomUi.style.top = "0");
+    newRoomUi.style.left = "0";
+    newRoomUi.style.width = "100vw";
+    newRoomUi.style.height = "100vh";
+    // Appends the new game's UI HTML element to the body
+    document.body.appendChild(newRoomUi);
+    // Sets the game's UI JSX React component
+    this.UI = <GameUI />;
+    // Makes React render the current game's UI HTML element
+    createRoot(document.getElementById("game-ui")!).render(this.UI);
   }
 
   public static setCurrentRoom(room: Room | null) {
     // If a current room exists, execute its unmount method and removes its HTML element
     if (this.currentRoom) {
       this.currentRoom.onUnmount();
-      const oldRoomUi = document.getElementById("room-ui");
-      if (oldRoomUi) {
-        oldRoomUi.remove();
-      }
     }
     if (room) {
-      // Removes current room's UI HTMLElement, if it exists
-      const roomUi = document.getElementById("room-ui");
-      if (roomUi) {
-        roomUi.remove();
-      }
-      // Creates the HTML element fo the new room, with proper styles
-      const newRoomUi = document.createElement("div");
-      newRoomUi.id = "room-ui";
-      (newRoomUi.style.position = "absolute"), (newRoomUi.style.top = "0");
-      newRoomUi.style.left = "0";
-      newRoomUi.style.width = "100vw";
-      newRoomUi.style.height = "100vh";
-      // Appends the new room's HTML element to the body
-      document.body.appendChild(newRoomUi);
-      // Makes React render the current room's HTML element
-      createRoot(document.getElementById("room-ui")!).render(room.getUi());
-      // Actually sets the new room as current room
+      // Sets the new room as current room
       this.currentRoom = room;
       // Executes the new current room's onInit method
       this.currentRoom.onInit();
