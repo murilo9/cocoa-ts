@@ -1,5 +1,3 @@
-import { Frame, SpriteSet } from "./SpriteSet";
-
 export class Animation {
   // Controls frame change speed
   private frameCounter = 0;

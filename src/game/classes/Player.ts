@@ -52,7 +52,7 @@ export class Player extends Collider implements CreatureBase {
               "playerStep5",
               "playerStep6",
             ],
-            ANIMATION_TIME
+            0
           ),
         },
         xScale: SCALE,
