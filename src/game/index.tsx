@@ -4,6 +4,7 @@ import { Game } from "../lib/Game";
 import { GameConfig } from "../lib/GameConfig";
 import { SpriteSet } from "../lib/SpriteSet";
 import { World } from "./rooms/World";
+import { GameUI } from "./UI";
 
 /* Game config definition */
 const gameConfig: GameConfig = {
@@ -31,7 +32,7 @@ const spriteSets = {
 
 /* Function that actually initializes the game (will be called by the React app's useEffect) */
 export const init = () => {
-  Game.setup(new World(), spriteSets, gameConfig, debug);
+  Game.setup(new World(), spriteSets, gameConfig, <GameUI />, debug);
   Game.start();
 };
 

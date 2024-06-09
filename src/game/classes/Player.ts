@@ -6,6 +6,7 @@ import { Collider } from "../../lib/Collider";
 import { AnimationSpriteConfig } from "../../lib/Graphic";
 import { Animation } from "../../lib/Animation";
 import { Input } from "../../lib/Input";
+import { Game } from "../../lib/Game";
 
 const START_POS_X = 250;
 const START_POS_Y = 250;
@@ -115,7 +116,9 @@ export class Player extends Collider implements CreatureBase {
         sprite.animation.setFrameIndex(0);
       }
     });
-    Input.addKeyListener("press", "g", () => console.log("G pressed"));
+    Input.addKeyListener("press", "g", () =>
+      Game.dispatchUIEvent("onTextInput", "foo")
+    );
   }
 
   onRun() {
