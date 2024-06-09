@@ -1,12 +1,12 @@
 import { Button } from "@mui/joy";
 import { useEffect, useState } from "react";
-import { Game } from "../lib/Game";
+import { GameUI } from "../lib/GameUI";
 
 export function UI() {
   const [text, setText] = useState("");
 
   useEffect(() => {
-    Game.setUIEventListener("onTextInput", (newText: string) => {
+    GameUI.setUIEventListener("onTextInput", (newText: string) => {
       setText((prevText) => prevText + newText);
     });
   }, []);

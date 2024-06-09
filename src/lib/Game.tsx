@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
-import { createRoot } from "react-dom/client";
 import { Camera } from "./Camera";
 import { Collider, ColliderBody } from "./Collider";
 import { Debug } from "./Debug";
@@ -9,11 +8,9 @@ import { Drawable } from "./Graphic";
 import { Room } from "./Room";
 import { Frame, SpriteSet } from "./SpriteSet";
 import { GameInput } from "./GameInput";
-import { Dictionary } from "./Dictionary";
+import { GameUI } from "./GameUI";
 
 const CYCLES_MS = 20;
-
-type UIEventListener<T> = (eventData: T) => unknown;
 
 export class Game {
   // Game's UI element
@@ -35,8 +32,6 @@ export class Game {
   private static screenWidth: number;
   // Screen height in pixels
   private static screenHeight: number;
-  // UI event listeners
-  private static uiEventListeners: Dictionary<UIEventListener<any>>;
 
   public static getCameraOffsetX() {
     return Camera.x - this.screenWidth / 2;
@@ -58,35 +53,11 @@ export class Game {
     return this.UI;
   }
 
-  /**
-   * Dispatches an event for the game's UI React component
-   * @param eventName
-   * @param payload
-   */
-  public static dispatchUIEvent(eventName: string, payload: unknown) {
-    if (this.uiEventListeners[eventName]) {
-      this.uiEventListeners[eventName](payload);
-    }
-  }
-
-  /**
-   * Called by the game's UI React component only.
-   * Sets the listener to a UI event.
-   * @param eventName
-   * @param listener
-   */
-  public static setUIEventListener<T>(
-    eventName: string,
-    listener: UIEventListener<T>
-  ) {
-    this.uiEventListeners[eventName] = listener;
-  }
-
   public static setup(
     initialRoom: Room,
     spriteSets: { [name: string]: SpriteSet },
     config: GameConfig,
-    GameUI: JSX.Element,
+    uiComponent: JSX.Element,
     debug: Debug = {
       log: false,
       displayCollisionBoxes: false,
@@ -96,7 +67,7 @@ export class Game {
   ) {
     // Sets up the GameInput class
     GameInput.setup();
-    this.uiEventListeners = {};
+    GameUI.init(uiComponent);
     const {
       screenWidth,
       screenHeight,
@@ -123,24 +94,6 @@ export class Game {
       self.canvas.width = window.innerWidth;
       self.canvas.height = window.innerHeight;
     });
-    // Removes game's UI HTMLElement, if it exists
-    const roomUi = document.getElementById("room-ui");
-    if (roomUi) {
-      roomUi.remove();
-    }
-    // Creates the HTML element fo the game's UI, with proper styles
-    const newRoomUi = document.createElement("div");
-    newRoomUi.id = "game-ui";
-    (newRoomUi.style.position = "absolute"), (newRoomUi.style.top = "0");
-    newRoomUi.style.left = "0";
-    newRoomUi.style.width = "100vw";
-    newRoomUi.style.height = "100vh";
-    // Appends the new game's UI HTML element to the body
-    document.body.appendChild(newRoomUi);
-    // Sets the game's UI JSX React component
-    this.UI = GameUI;
-    // Makes React render the current game's UI HTML element
-    createRoot(document.getElementById("game-ui")!).render(this.UI);
   }
 
   public static setCurrentRoom(room: Room | null) {
