@@ -17,7 +17,7 @@ interface InputAxis {
   listeners: InputAxisListener[];
 }
 
-export class Input {
+export class GameInput {
   private static axis1: InputAxis;
   private static axis2: InputAxis;
   private static keyPressListeners: Dictionary<KeyListener[] | undefined>;

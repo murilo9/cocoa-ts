@@ -8,7 +8,7 @@ import { GameConfig } from "./GameConfig";
 import { Drawable } from "./Graphic";
 import { Room } from "./Room";
 import { Frame, SpriteSet } from "./SpriteSet";
-import { Input } from "./Input";
+import { GameInput } from "./GameInput";
 import { Dictionary } from "./Dictionary";
 
 const CYCLES_MS = 20;
@@ -94,8 +94,8 @@ export class Game {
       displayDrawIndexes: false,
     }
   ) {
-    // Sets up the Input class
-    Input.setup();
+    // Sets up the GameInput class
+    GameInput.setup();
     this.uiEventListeners = {};
     const {
       screenWidth,

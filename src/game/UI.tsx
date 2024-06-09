@@ -2,7 +2,7 @@ import { Button } from "@mui/joy";
 import { useEffect, useState } from "react";
 import { Game } from "../lib/Game";
 
-export function GameUI() {
+export function UI() {
   const [text, setText] = useState("");
 
   useEffect(() => {

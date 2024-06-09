@@ -5,7 +5,7 @@ import { Camera } from "../../lib/Camera";
 import { Collider } from "../../lib/Collider";
 import { AnimationSpriteConfig } from "../../lib/Graphic";
 import { Animation } from "../../lib/Animation";
-import { Input } from "../../lib/Input";
+import { GameInput } from "../../lib/GameInput";
 import { Game } from "../../lib/Game";
 
 const START_POS_X = 250;
@@ -98,7 +98,7 @@ export class Player extends Collider implements CreatureBase {
 
   onInit(): void {
     // Move player if keys are pressed
-    Input.addAxis1Listener((axis) => {
+    GameInput.addAxis1Listener((axis) => {
       console.log("axis1 listener", axis);
       this.xSpeed = axis.x * SPEED;
       this.ySpeed = -axis.y * SPEED;
@@ -116,7 +116,7 @@ export class Player extends Collider implements CreatureBase {
         sprite.animation.setFrameIndex(0);
       }
     });
-    Input.addKeyListener("press", "g", () =>
+    GameInput.addKeyListener("press", "g", () =>
       Game.dispatchUIEvent("onTextInput", "foo")
     );
   }
