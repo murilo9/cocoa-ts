@@ -67,7 +67,9 @@ export class Game {
   ) {
     // Sets up the GameInput class
     GameInput.setup();
+    // Initializes the GameUI class
     GameUI.init(uiComponent);
+    // Creates and configurates the canvas HTML element
     const {
       screenWidth,
       screenHeight,
@@ -82,10 +84,13 @@ export class Game {
     this.canvas.height = this.screenHeight = screenHeight;
     this.canvas.style.background = canvasBackgroundColor;
     document.body.appendChild(this.canvas);
-    this.setCurrentRoom(initialRoom);
-    this.debugLog("Game constructor: spriteSets", this.spriteSets);
     this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
+    // Sets the initial room as current room
+    this.setCurrentRoom(initialRoom);
+    // Debug logs the spritesets
+    this.debugLog("Game constructor: spriteSets", this.spriteSets);
     const self = this;
+    // Adds the window resize event listener
     window.addEventListener("resize", () => {
       setTimeout(
         () => console.log("resizing", window.innerWidth, window.innerHeight),
@@ -282,7 +287,7 @@ export class Game {
       entity.onRun && entity.onRun();
     });
 
-    // **** PART 5: Execute entities' beforeRun methods ****
+    // **** PART 5: Execute entities' afterRun methods ****
 
     this.currentRoom.getEntities().forEach((entity) => {
       entity.afterRun && entity.afterRun();
