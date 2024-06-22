@@ -46,16 +46,18 @@ Damage types:
 Skills & Feats:
 
 - Athletics (max HP per level increase, carry capacity increase, speed increase, HP regen increase)
-- Planting (extra yield chance increase)
-- Mining (extra yield chance increase)
+- Planting (extra yield chance increase, plant more crops)
+- Mining (extra yield chance increase, mine more ores)
 - Magic (max MP per level increase, elemental resistance, MP regen increase)
 - Fighting (damage type resistance, damage type bonus, unarmored defense bonus)
 - Sneaking (pickpicket success chance increase, more gold & less items, more items & less gold)
 - Social (chat variety increase, likelihood increase bonus)
+- Crafting (make tools, weapons, armor)
 
 # Social
 
 You can chat with people in order to increase/decrease their likelihood of you.
+People demands items/furniture, which allows you to increase their likelihood past a certain level.
 
 # Thieving
 
@@ -88,6 +90,9 @@ You can pickpocket people, with a chance of decreasing their likelihood. A succe
 - Fireplace
 - Oven
 - Range
+- Workbench
+- Furnace
+- Anvil
 - Painting
 - Sculpture
 - Rug
@@ -110,6 +115,14 @@ You can pickpocket people, with a chance of decreasing their likelihood. A succe
 - Gold
 - Silver
 - Gems (amethyst, sapphire, emerald, ruby, diamond)
+
+# Crafting
+
+Furnaces smelt ore into ingots.
+Anvils lets you create metal tools, weapons and armor from ingots.
+Crafting benches lets you create non-metal tools, jewlery and staffs.
+Butching table lets you turn animal carcasses into meat, bones, fur, etc.
+Tannery lets you turn fur into leather.
 
 # Fishing
 
@@ -149,7 +162,7 @@ Crops:
   -- Pine (temperate, cold)
   -- Birch (warm)
   -- Mahogany (temperate, warm)
-  -- Spirit (temperate, warm)
+  -- Spiritual (temperate, warm)
 
 # Cooking
 
@@ -166,6 +179,9 @@ Crafting:
 - Baked vegetables
 - Dishes (from vegetables and/or fruits)
 - Cake (from egg, milk, sugar and wheat/corn flour)
+- Pizza (from water, flour, cheese, tomato)
+- Pie (from water, flour, strawberry or grape)
+- Jelly (from strawberry, grapes, banana or pineapple)
 - Beer (from water, hops and wheat/corn)
 - Coffee (from coffee seeds and water)
 - Chocolate (from milk, sugar and cocoa beans)
@@ -197,6 +213,7 @@ Spells (are learned from scrolls):
 Structure:
 
 - Trough (where animals eat for reproducing)
+- Fences (wood, stone, metal)
 
 Animals:
 
@@ -204,3 +221,8 @@ Animals:
 - Sheep (wool)
 - Goat (milk)
 - Chicken (egg)
+
+Pets:
+
+- Dog
+- Cat
