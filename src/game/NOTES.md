@@ -109,12 +109,13 @@ You can pickpocket people, with a chance of decreasing their likelihood. A succe
 # Mining
 
 - Stone
+- Copper
 - Iron
 - Coal
-- Adamant
-- Gold
 - Silver
-- Gems (amethyst, sapphire, emerald, ruby, diamond)
+- Gold
+- Adamant
+- Gems (amethyst, sapphire, emerald, ruby, diamond, dragon eye)
 
 # Crafting
 
