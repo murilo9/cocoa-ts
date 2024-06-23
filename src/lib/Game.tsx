@@ -269,7 +269,7 @@ export class Game {
         a.setPosition(a.x - overlapV.x, a.y - overlapV.y);
       });
       if (this.debug.displayCollisionBoxes) {
-        self.ctx.strokeStyle = "#00FF00";
+        self.ctx.strokeStyle = "#FF0066";
         self.ctx.beginPath();
         system.draw(self.ctx);
         self.ctx.stroke();

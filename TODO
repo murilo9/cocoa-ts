@@ -1,2 +1,8 @@
+PROBLEMS:
+
+- I have to type cast entities' sprites. The two static and animation sprite classes should extend the same base class.
+
+TODO:
+
 - Sound engine
 - Time/Alarm engine

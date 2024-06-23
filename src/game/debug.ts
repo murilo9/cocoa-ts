@@ -1,4 +1,4 @@
-import { Debug } from "../core/types/Debug";
+import { Debug } from "../lib/Debug";
 
 export const debug: Debug = {
   log: false,

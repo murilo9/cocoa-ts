@@ -56,4 +56,19 @@ export class Drawable extends Entity {
     this.visible = arg?.visible || true;
     this.sprite = arg.sprite;
   }
+
+  public setSpriteConfig({
+    frameName,
+    spriteSetName,
+  }: {
+    frameName?: string;
+    spriteSetName?: string;
+  }) {
+    if (frameName) {
+      (this.sprite as StaticSpriteConfig).frameName = frameName;
+    }
+    if (spriteSetName) {
+      (this.sprite as StaticSpriteConfig).spriteSetName = spriteSetName;
+    }
+  }
 }

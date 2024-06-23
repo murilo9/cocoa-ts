@@ -1,4 +1,5 @@
 import mainSpriteSet from "./assets/main-spriteset.png";
+import humanChars from "./assets/human-chars.png";
 import { debug } from "./debug";
 import { Game } from "../lib/Game";
 import { GameConfig } from "../lib/GameConfig";
@@ -15,6 +16,12 @@ const gameConfig: GameConfig = {
 };
 
 /* Spritesets definition */
+const humanCharset = new SpriteSet(humanChars, {
+  downSkinny: [0, 1 * 24, 1 * 24, 3 * 24],
+  upSkinny: [0, 3 * 24, 1 * 24, 5 * 24],
+  rightSkinny: [0, 5 * 24, 1 * 24, 7 * 24],
+});
+
 const spriteSet1 = new SpriteSet(mainSpriteSet, {
   playerIdle: [128, 16, 128 + 16, 32],
   playerStep1: [144, 16, 144 + 16, 32],
@@ -28,6 +35,7 @@ const spriteSet1 = new SpriteSet(mainSpriteSet, {
 
 const spriteSets = {
   spriteSet1,
+  humanCharset,
 };
 
 /* Function that actually initializes the game (will be called by the React app's useEffect) */
