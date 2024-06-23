@@ -5,11 +5,11 @@ import { Player } from "../classes/Player";
 
 /* Room initial entities definition */
 const roomInitialEntities = [
-  new Player(10, 10, 10, 10, 10, 10, 10),
-  new Pillar({ x: -100, y: 100 }),
-  new Pillar({ x: -100, y: -100 }),
+  new Player(),
   new Pillar({ x: 100, y: 100 }),
-  new Pillar({ x: 100, y: -100 }),
+  // new Pillar({ x: -100, y: -100 }),
+  // new Pillar({ x: 100, y: 100 }),
+  // new Pillar({ x: 100, y: -100 }),
 ];
 
 /* Initial room definition */

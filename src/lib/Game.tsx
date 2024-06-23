@@ -11,6 +11,7 @@ import { GameInput } from "./GameInput";
 import { GameUI } from "./GameUI";
 
 const CYCLES_MS = 20;
+const RENDER_SCALE = 2;
 
 export class Game {
   // Game's UI element
@@ -85,6 +86,7 @@ export class Game {
     this.canvas.style.background = canvasBackgroundColor;
     document.body.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
+    this.ctx.scale(RENDER_SCALE, RENDER_SCALE);
     // Sets the initial room as current room
     this.setCurrentRoom(initialRoom);
     // Debug logs the spritesets
@@ -126,6 +128,7 @@ export class Game {
     // Get context
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.imageSmoothingEnabled = false;
+    // Set context scale
 
     // **** PART 2: Resolve entities' movements ****
 
@@ -147,7 +150,7 @@ export class Game {
     );
     // For each sorted entity, render it
     sortedGraphicEntities.forEach((entity) => {
-      const { sprite, x, y, xPivot, yPivot, xScale, yScale } = entity;
+      const { sprite, x, y, xPivot, yPivot, flipX, flipY } = entity;
       let frame: Frame;
       let spriteSet: SpriteSet;
       let image: HTMLImageElement;
@@ -175,36 +178,30 @@ export class Game {
         const sy = frame[1];
         const sWidth = frame[2] - sx;
         const sHeight = frame[3] - sy;
-        const xAxisFlip = xScale > 0 ? 1 : -1;
-        const yAxisFlip = yScale > 0 ? 1 : -1;
-        const xAxisFlipCorrection = xAxisFlip === -1 ? 2 * sWidth : 0;
-        const yAxisFlipCorrection = yAxisFlip === -1 ? 2 * sHeight : 0;
-        const dx = x - xPivot - this.getCameraOffsetX() + xAxisFlipCorrection;
-        const dy = y - yPivot - this.getCameraOffsetY() + yAxisFlipCorrection;
-        const dWidth = sWidth * Math.abs(xScale);
-        const dHeight = sHeight * Math.abs(yScale);
+        const dx = (x - xPivot - this.getCameraOffsetX()) / RENDER_SCALE;
+        const dy = (y - yPivot - this.getCameraOffsetY()) / RENDER_SCALE;
         // Render the frame in the canvas context
         this.ctx.save();
-        this.ctx.scale(xAxisFlip, yAxisFlip);
+
         this.ctx.drawImage(
           image,
           sx,
           sy,
           sWidth,
           sHeight,
-          dx * xAxisFlip,
-          dy * yAxisFlip,
-          dWidth,
-          dHeight
+          dx /* * xAxisFlip*/,
+          dy /* * yAxisFlip*/,
+          sWidth,
+          sHeight
         );
-        this.ctx.restore();
 
         // Display entity drawIndex
         if (this.debug.displayDrawIndexes) {
           this.ctx.fillText(
             Math.floor(entity.drawIndex).toString(),
-            entity.x - this.getCameraOffsetX(),
-            entity.y - dHeight + entity.yPivot - this.getCameraOffsetY()
+            (entity.x - this.getCameraOffsetX()) / RENDER_SCALE,
+            (entity.y - sHeight + entity.yPivot - this.getCameraOffsetY()) /
+              RENDER_SCALE
           );
         }
         // Display entity pivot
@@ -213,23 +210,17 @@ export class Game {
           this.ctx.strokeStyle = "red";
           this.ctx.beginPath();
           this.ctx.moveTo(
-            entity.x - this.getCameraOffsetX(),
-            entity.y + entity.yPivot - this.getCameraOffsetY()
+            (entity.x - this.getCameraOffsetX()) / RENDER_SCALE,
+            (entity.y - this.getCameraOffsetY()) / RENDER_SCALE
           );
           this.ctx.lineTo(
-            entity.x + entity.xPivot - this.getCameraOffsetX(),
-            entity.y + entity.yPivot - this.getCameraOffsetY()
+            (entity.x - entity.xPivot - this.getCameraOffsetX()) / RENDER_SCALE,
+            (entity.y - entity.yPivot - this.getCameraOffsetY()) / RENDER_SCALE
           );
-          this.ctx.moveTo(
-            entity.x + entity.xPivot - this.getCameraOffsetX(),
-            entity.y - this.getCameraOffsetY()
-          );
-          this.ctx.lineTo(
-            entity.x + entity.xPivot - this.getCameraOffsetX(),
-            entity.y + entity.yPivot - this.getCameraOffsetY()
-          );
+
           this.ctx.stroke();
         }
+        this.ctx.restore();
       }
     });
 
@@ -247,11 +238,7 @@ export class Game {
         false
       );
       // Update collison body scale
-      entity.body.setScale(
-        Math.abs(entity.xScale),
-        Math.abs(entity.yScale),
-        false
-      );
+      entity.body.setScale(RENDER_SCALE, RENDER_SCALE, false);
       // Update collision body rotation
       entity.body.setAngle(entity.rotation, false);
       // Update collison body pivot
@@ -296,6 +283,7 @@ export class Game {
 
   public static start() {
     const self = this;
+    self.cycle();
     // Try to cycle at 60 fps
     this.cycleInterval = setInterval(function () {
       self.cycle();

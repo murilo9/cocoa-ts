@@ -21,7 +21,7 @@ Weapons:
 - Sword
 - Two-handed Sword
 - Mace
-- Wahammer
+- Warhammer
 - Bow
 - Staff
 
@@ -53,6 +53,7 @@ Skills & Feats:
 - Sneaking (pickpicket success chance increase, more gold & less items, more items & less gold)
 - Social (chat variety increase, likelihood increase bonus)
 - Crafting (make tools, weapons, armor)
+- Crafting (extra butchering yield, burning chance decrease, pastry and bakery, brewing)
 
 # Social
 
@@ -122,8 +123,15 @@ You can pickpocket people, with a chance of decreasing their likelihood. A succe
 Furnaces smelt ore into ingots.
 Anvils lets you create metal tools, weapons and armor from ingots.
 Crafting benches lets you create non-metal tools, jewlery and staffs.
-Butching table lets you turn animal carcasses into meat, bones, fur, etc.
+Butching table lets you get extra yield from animal carcasses, and extra items like bones and entrails.
 Tannery lets you turn fur into leather.
+
+Handmade crafting:
+
+- Stone tools (from stone and sticks)
+- Thread (from plant fiber)
+- Meat (from carcasses)
+- Fur (from carcasses)
 
 # Fishing
 
@@ -164,6 +172,9 @@ Crops:
   -- Birch (warm)
   -- Mahogany (temperate, warm)
   -- Spiritual (temperate, warm)
+- Bushes
+  -- Redberry (warm, temperate)
+  -- Blueberry (temperate, cold)
 
 # Cooking
 
@@ -177,11 +188,11 @@ Crafting:
 
 - Water (bucket, vial)
 - Meats, eggs, milk, honey
-- Baked vegetables
-- Dishes (from vegetables and/or fruits)
+- Sausage (from meat and entrails)
+- Cheese (from milk)
 - Cake (from egg, milk, sugar and wheat/corn flour)
 - Pizza (from water, flour, cheese, tomato)
-- Pie (from water, flour, strawberry or grape)
+- Pie (from water, flour, strawberry or grape or berry)
 - Jelly (from strawberry, grapes, banana or pineapple)
 - Beer (from water, hops and wheat/corn)
 - Coffee (from coffee seeds and water)
@@ -216,14 +227,49 @@ Structure:
 - Trough (where animals eat for reproducing)
 - Fences (wood, stone, metal)
 
-Animals:
+Animals - Tamable:
 
 - Cow (milk)
 - Sheep (wool)
 - Goat (milk)
 - Chicken (egg)
 
+Animals - Untamable:
+
+- Hare (warm, temperate, cold)
+- Squirel (warm, temperate, cold)
+- Wolf (temperate, cold)
+- Jaguar (warm)
+- Rhino (warm)
+- Bear (temperate, cold)
+- Walrus (cold)
+
 Pets:
 
 - Dog
 - Cat
+
+# ITEMS DATABASE
+
+- Oak log
+- Stick
+- Stone
+- Stone building hammer
+- Stone pick
+- Stone spade
+- Stone scythe
+- Stone axe
+- Stone dagger
+- Stone mace
+- Redberry
+- Blueberry
+- Small carcass
+- Medium carcass
+- Big carcass
+- Fur
+- Meat
+- Bone
+- Poop
+- Plant fiber
+- Thread
+- Wood fishing rod

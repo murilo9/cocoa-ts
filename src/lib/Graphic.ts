@@ -21,10 +21,10 @@ export type DrawableArgs = {
   xSpeed?: number;
   ySpeed?: number;
   drawIndex?: number;
-  xScale?: number;
-  yScale?: number;
   visible?: boolean;
   sprite: StaticSpriteConfig | AnimationSpriteConfig;
+  flipX?: boolean;
+  flipY?: boolean;
 };
 
 export class Drawable extends Entity {
@@ -35,10 +35,10 @@ export class Drawable extends Entity {
   rotation: number;
   xSpeed: number;
   ySpeed: number;
+  flipX?: boolean;
+  flipY?: boolean;
   sprite: StaticSpriteConfig | AnimationSpriteConfig;
   drawIndex: number;
-  xScale: number;
-  yScale: number;
   visible: boolean;
 
   constructor(arg: DrawableArgs) {
@@ -51,10 +51,10 @@ export class Drawable extends Entity {
     this.xSpeed = arg?.xSpeed || 0;
     this.ySpeed = arg?.ySpeed || 0;
     this.drawIndex = arg?.drawIndex || 1;
-    this.xScale = arg?.xScale || 1;
-    this.yScale = arg?.yScale || 1;
     this.visible = arg?.visible || true;
     this.sprite = arg.sprite;
+    this.flipX = false;
+    this.flipY = false;
   }
 
   public setSpriteConfig({

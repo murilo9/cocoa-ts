@@ -1,7 +1,6 @@
 import { Circle } from "detect-collisions";
 import { Collider } from "../../lib/Collider";
 
-const SCALE = 2;
 const X_PIVOT = 8;
 const Y_PIVOT = 32;
 
@@ -16,8 +15,6 @@ export class Pillar extends Collider {
           spriteSetName: "spriteSet1",
           frameName: "pillar",
         },
-        xScale: SCALE,
-        yScale: SCALE,
         xPivot: X_PIVOT,
         yPivot: Y_PIVOT,
         drawIndex: y + Y_PIVOT,
