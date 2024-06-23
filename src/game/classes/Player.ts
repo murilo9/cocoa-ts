@@ -50,6 +50,7 @@ export class Player extends Collider {
       // If player is moving, set sprite to animation
       if (axis.x !== 0 || axis.y !== 0) {
         this.sprite = { type: "animation", animation: playerWalkAnimation };
+        this.flipX = axis.x === -1;
       }
       // Is player is not moving, set sprite to idle
       else {

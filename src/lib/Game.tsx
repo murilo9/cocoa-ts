@@ -11,7 +11,7 @@ import { GameInput } from "./GameInput";
 import { GameUI } from "./GameUI";
 
 const CYCLES_MS = 20;
-const RENDER_SCALE = 2;
+const RENDER_SCALE = 4;
 
 export class Game {
   // Game's UI element
@@ -173,24 +173,35 @@ export class Game {
           const frameName = sprite.animation.getCurrentFrameName();
           frame = spriteSet.getFrame(frameName);
         }
+        // Save the original state of the context
+        this.ctx.save();
+        // Translate context according to entity's pivots
+        this.ctx.translate(-xPivot, -yPivot);
         // Prepare the sprite frame to be rendered
         const sx = frame[0];
         const sy = frame[1];
         const sWidth = frame[2] - sx;
         const sHeight = frame[3] - sy;
-        const dx = (x - xPivot - this.getCameraOffsetX()) / RENDER_SCALE;
-        const dy = (y - yPivot - this.getCameraOffsetY()) / RENDER_SCALE;
-        // Render the frame in the canvas context
-        this.ctx.save();
+        const dx = (x - this.getCameraOffsetX()) / RENDER_SCALE;
+        const dy = (y - this.getCameraOffsetY()) / RENDER_SCALE;
 
+        if (flipX) {
+          this.ctx.translate(sWidth, 0);
+          this.ctx.scale(-1, 1);
+        }
+        if (flipY) {
+          this.ctx.translate(0, sHeight);
+          this.ctx.scale(1, -1);
+        }
+        // Render the frame in the canvas context
         this.ctx.drawImage(
           image,
           sx,
           sy,
           sWidth,
           sHeight,
-          dx /* * xAxisFlip*/,
-          dy /* * yAxisFlip*/,
+          flipX ? -dx : dx,
+          flipY ? -dy : dy,
           sWidth,
           sHeight
         );
@@ -200,13 +211,12 @@ export class Game {
           this.ctx.fillText(
             Math.floor(entity.drawIndex).toString(),
             (entity.x - this.getCameraOffsetX()) / RENDER_SCALE,
-            (entity.y - sHeight + entity.yPivot - this.getCameraOffsetY()) /
-              RENDER_SCALE
+            (entity.y - sHeight - this.getCameraOffsetY()) / RENDER_SCALE
           );
         }
-        // Display entity pivot
+        // Draw red line from frame start (0, 0) to pivot point
         if (this.debug.displayPivots) {
-          this.ctx.lineWidth = 2;
+          this.ctx.lineWidth = 2 / RENDER_SCALE;
           this.ctx.strokeStyle = "red";
           this.ctx.beginPath();
           this.ctx.moveTo(
@@ -214,8 +224,10 @@ export class Game {
             (entity.y - this.getCameraOffsetY()) / RENDER_SCALE
           );
           this.ctx.lineTo(
-            (entity.x - entity.xPivot - this.getCameraOffsetX()) / RENDER_SCALE,
-            (entity.y - entity.yPivot - this.getCameraOffsetY()) / RENDER_SCALE
+            (entity.x + xPivot * RENDER_SCALE - this.getCameraOffsetX()) /
+              RENDER_SCALE,
+            (entity.y + yPivot * RENDER_SCALE - this.getCameraOffsetY()) /
+              RENDER_SCALE
           );
 
           this.ctx.stroke();
