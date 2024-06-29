@@ -209,6 +209,8 @@ export class Game {
         // Revert context translation according to entity's pivots
         this.ctx.translate(xPivot, yPivot);
 
+        this.ctx.restore();
+
         // Display entity drawIndex
         if (this.debug.displayDrawIndexes) {
           this.ctx.fillText(
