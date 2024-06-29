@@ -25,17 +25,16 @@ export class GameInput {
 
   static handleKeyPress(key: string) {
     // Verifies if axis1 changed
-    const axis1Match = key.match(
-      new RegExp(
-        this.axis1.setup.downKey +
-          "|" +
-          this.axis1.setup.upKey +
-          "|" +
-          this.axis1.setup.leftKey +
-          "|" +
-          this.axis1.setup.rightKey
-      )
+    const reg = new RegExp(
+      this.axis1.setup.downKey +
+        "|" +
+        this.axis1.setup.upKey +
+        "|" +
+        this.axis1.setup.leftKey +
+        "|" +
+        this.axis1.setup.rightKey
     );
+    const axis1Match = reg.test(key);
     if (axis1Match) {
       // Updates axis status
       const { downKey, leftKey, rightKey, upKey } = this.axis1.setup;
@@ -56,17 +55,16 @@ export class GameInput {
 
   static handleKeyRelease(key: string) {
     // Verifies if axis1 changed
-    const axis1Match = key.match(
-      new RegExp(
-        this.axis1.setup.downKey +
-          "|" +
-          this.axis1.setup.upKey +
-          "|" +
-          this.axis1.setup.leftKey +
-          "|" +
-          this.axis1.setup.rightKey
-      )
+    const reg = new RegExp(
+      this.axis1.setup.downKey +
+        "|" +
+        this.axis1.setup.upKey +
+        "|" +
+        this.axis1.setup.leftKey +
+        "|" +
+        this.axis1.setup.rightKey
     );
+    const axis1Match = reg.test(key);
     if (axis1Match) {
       // Updates axis status
       const { downKey, leftKey, rightKey, upKey } = this.axis1.setup;
@@ -109,10 +107,10 @@ export class GameInput {
       x: 0,
       y: 0,
       setup: {
-        downKey: "s",
-        upKey: "w",
-        leftKey: "a",
-        rightKey: "d",
+        downKey: "KeyS",
+        upKey: "KeyW",
+        leftKey: "KeyA",
+        rightKey: "KeyD",
       },
       listeners: [],
     };
@@ -134,10 +132,10 @@ export class GameInput {
       if (event.repeat) {
         return;
       }
-      this.handleKeyPress(event.key);
+      this.handleKeyPress(event.code);
     };
     window.onkeyup = (event: KeyboardEvent) => {
-      this.handleKeyRelease(event.key);
+      this.handleKeyRelease(event.code);
     };
   }
 
