@@ -241,24 +241,30 @@ export class Game {
           this.ctx.strokeStyle = "green";
           this.ctx.beginPath();
           this.ctx.moveTo(
-            (entity.x + sWidth - this.getCameraOffsetX()) / RENDER_SCALE,
-            (entity.y + sHeight - this.getCameraOffsetY()) / RENDER_SCALE
+            (entity.x + sWidth * RENDER_SCALE - this.getCameraOffsetX()) /
+              RENDER_SCALE,
+            (entity.y + sHeight * RENDER_SCALE - this.getCameraOffsetY()) /
+              RENDER_SCALE
           );
           this.ctx.lineTo(
             (entity.x - this.getCameraOffsetX()) / RENDER_SCALE,
-            (entity.y + sHeight - this.getCameraOffsetY()) / RENDER_SCALE
+            (entity.y + sHeight * RENDER_SCALE - this.getCameraOffsetY()) /
+              RENDER_SCALE
           );
           this.ctx.lineTo(
             (entity.x - this.getCameraOffsetX()) / RENDER_SCALE,
             (entity.y - this.getCameraOffsetY()) / RENDER_SCALE
           );
           this.ctx.lineTo(
-            (entity.x + sWidth - this.getCameraOffsetX()) / RENDER_SCALE,
+            (entity.x + sWidth * RENDER_SCALE - this.getCameraOffsetX()) /
+              RENDER_SCALE,
             (entity.y - this.getCameraOffsetY()) / RENDER_SCALE
           );
           this.ctx.lineTo(
-            (entity.x + sWidth - this.getCameraOffsetX()) / RENDER_SCALE,
-            (entity.y + sHeight - this.getCameraOffsetY()) / RENDER_SCALE
+            (entity.x + sWidth * RENDER_SCALE - this.getCameraOffsetX()) /
+              RENDER_SCALE,
+            (entity.y + sHeight * RENDER_SCALE - this.getCameraOffsetY()) /
+              RENDER_SCALE
           );
 
           this.ctx.stroke();
