@@ -11,7 +11,7 @@ import { GameInput } from "./GameInput";
 import { GameUI } from "./GameUI";
 
 const CYCLES_MS = 20;
-const RENDER_SCALE = 1;
+const RENDER_SCALE = 2;
 
 export class Game {
   // Game's UI element
@@ -214,18 +214,25 @@ export class Game {
           this.ctx.fillText(
             "d: " + Math.floor(entity.drawIndex).toString(),
             (entity.x - this.getCameraOffsetX()) / RENDER_SCALE,
-            (entity.y - (sHeight + 24) - this.getCameraOffsetY()) / RENDER_SCALE
+            (entity.y -
+              (sHeight + 24) * RENDER_SCALE -
+              this.getCameraOffsetY()) /
+              RENDER_SCALE
           );
           this.ctx.fillText(
             "y: " + Math.floor(entity.y).toString(),
             (entity.x - this.getCameraOffsetX()) / RENDER_SCALE,
-            (entity.y - (sHeight + 12) - this.getCameraOffsetY()) / RENDER_SCALE
+            (entity.y -
+              (sHeight + 12) * RENDER_SCALE -
+              this.getCameraOffsetY()) /
+              RENDER_SCALE
           );
           this.ctx.fillText(
             "p: " + Math.floor(entity.yPivot).toString(),
 
             (entity.x - this.getCameraOffsetX()) / RENDER_SCALE,
-            (entity.y - sHeight - this.getCameraOffsetY()) / RENDER_SCALE
+            (entity.y - sHeight * RENDER_SCALE - this.getCameraOffsetY()) /
+              RENDER_SCALE
           );
         }
         // Draw green line to outline entity's frame
