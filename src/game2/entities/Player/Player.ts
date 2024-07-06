@@ -1,9 +1,10 @@
 import { Ellipse } from "detect-collisions";
-import { Collider } from "../../lib/Collider";
-import { Camera } from "../../lib/Camera";
-import { GameInput } from "../../lib/GameInput";
-import { Animation } from "../../lib/Animation";
-import { GameUI } from "../../lib/GameUI";
+import { Collider } from "../../../lib/Collider";
+import { Camera } from "../../../lib/Camera";
+import { GameInput } from "../../../lib/GameInput";
+import { GameUI } from "../../../lib/GameUI";
+import { PlayerClass, PlayerData, PlayerGender } from "./PlayerData";
+import { playerAnimations } from "./animations";
 
 const START_POS_X = 0;
 const START_POS_Y = 0;
@@ -11,13 +12,10 @@ const SPEED = 2;
 const X_PIVOT = 8;
 const Y_PIVOT = 32;
 
-const playerWalkAnimation = new Animation(
-  "mainSpriteset",
-  ["playerMaleWalk1", "playerMaleWalk2", "playerMaleWalk3", "playerMaleWalk4"],
-  6
-);
+export class Player extends Collider implements PlayerData {
+  gender: PlayerGender = "Female";
+  class: PlayerClass = "wizard";
 
-export class Player extends Collider {
   constructor() {
     // Movement initializers
     super(
@@ -29,11 +27,17 @@ export class Player extends Collider {
         sprite: {
           type: "static",
           spriteSetName: "mainSpriteset",
-          frameName: "playerMaleIdle",
+          frameName: "rogueFemaleIdle", // Won't necessarily be the actual sprite
         },
       },
       new Ellipse({ x: START_POS_X, y: START_POS_Y }, 6, 6)
     );
+    // Initializes the actual sprite
+    this.sprite = {
+      type: "static",
+      spriteSetName: "mainSpriteset",
+      frameName: this.getIdleSpriteName(),
+    };
     // Attaches camera to the player
     Camera.attach(this);
   }
@@ -49,7 +53,10 @@ export class Player extends Collider {
       // }
       // If player is moving, set sprite to animation
       if (axis.x !== 0 || axis.y !== 0) {
-        this.sprite = { type: "animation", animation: playerWalkAnimation };
+        this.sprite = {
+          type: "animation",
+          animation: this.getAnimation(),
+        };
         this.flipX = axis.x === -1;
       }
       // Is player is not moving, set sprite to idle
@@ -57,7 +64,7 @@ export class Player extends Collider {
         this.sprite = {
           type: "static",
           spriteSetName: "mainSpriteset",
-          frameName: "playerMaleIdle",
+          frameName: this.getIdleSpriteName(),
         };
       }
     });
@@ -70,4 +77,13 @@ export class Player extends Collider {
     // Update drawIndex
     this.drawIndex = this.y + this.yPivot;
   }
+
+  private getAnimation = () => {
+    const animationName = this.class + this.gender + "WalkAnimation";
+    return playerAnimations[animationName];
+  };
+
+  private getIdleSpriteName = () => {
+    return this.class + this.gender + "Idle";
+  };
 }
