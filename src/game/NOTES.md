@@ -83,17 +83,19 @@ You can pickpocket people, with a chance of decreasing their likelihood. A succe
 
 # Furniture
 
+- Bedroll
 - Bed
 - Double bed
 - Table
 - Stool
 - Chair
 - Fireplace
-- Oven
+- Stove
 - Range
 - Workbench
 - Furnace
 - Anvil
+- Decorative weapons
 - Painting
 - Sculpture
 - Rug
@@ -115,7 +117,7 @@ You can pickpocket people, with a chance of decreasing their likelihood. A succe
 - Coal
 - Silver
 - Gold
-- Adamant
+- Oclalt
 - Gems (amethyst, sapphire, emerald, ruby, diamond, dragon eye)
 
 # Crafting
