@@ -13,7 +13,7 @@ const X_PIVOT = 8;
 const Y_PIVOT = 32;
 
 export class Player extends Collider implements PlayerData {
-  gender: PlayerGender = "Female";
+  gender: PlayerGender = "Male";
   class: PlayerClass = "wizard";
 
   constructor() {
@@ -26,7 +26,7 @@ export class Player extends Collider implements PlayerData {
         yPivot: Y_PIVOT,
         sprite: {
           type: "static",
-          spriteSetName: "mainSpriteset",
+          spriteSetName: "playersSet",
           frameName: "rogueFemaleIdle", // Won't necessarily be the actual sprite
         },
       },
@@ -35,7 +35,7 @@ export class Player extends Collider implements PlayerData {
     // Initializes the actual sprite
     this.sprite = {
       type: "static",
-      spriteSetName: "mainSpriteset",
+      spriteSetName: "playersSet",
       frameName: this.getIdleSpriteName(),
     };
     // Attaches camera to the player
@@ -63,7 +63,7 @@ export class Player extends Collider implements PlayerData {
       else {
         this.sprite = {
           type: "static",
-          spriteSetName: "mainSpriteset",
+          spriteSetName: "playersSet",
           frameName: this.getIdleSpriteName(),
         };
       }

@@ -15,8 +15,8 @@ export class Pillar extends Collider {
         yPivot: Y_PIVOT,
         sprite: {
           type: "static",
-          spriteSetName: "mainSpriteset",
-          frameName: "pillar",
+          spriteSetName: "monstersMediumSet",
+          frameName: "darkSorcererIdle",
         },
         drawIndex: y + Y_PIVOT,
       },

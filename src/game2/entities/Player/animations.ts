@@ -1,13 +1,12 @@
 import { Animation } from "../../../lib/Animation";
-import { AnimationSpriteConfig } from "../../../lib/Graphic";
 
 const rogueMaleWalkAnimation = new Animation(
-  "mainSpriteset",
+  "playersSet",
   ["rogueMaleWalk1", "rogueMaleWalk2", "rogueMaleWalk3", "rogueMaleWalk4"],
   6
 );
 const rogueFemaleWalkAnimation = new Animation(
-  "mainSpriteset",
+  "playersSet",
   [
     "rogueFemaleWalk1",
     "rogueFemaleWalk2",
@@ -17,7 +16,7 @@ const rogueFemaleWalkAnimation = new Animation(
   6
 );
 const knightFemaleWalkAnimation = new Animation(
-  "mainSpriteset",
+  "playersSet",
   [
     "knightFemaleWalk1",
     "knightFemaleWalk2",
@@ -27,13 +26,13 @@ const knightFemaleWalkAnimation = new Animation(
   6
 );
 const knightMaleWalkAnimation = new Animation(
-  "mainSpriteset",
+  "playersSet",
   ["knightMaleWalk1", "knightMaleWalk2", "knightMaleWalk3", "knightMaleWalk4"],
   6
 );
 
 const wizardFemaleWalkAnimation = new Animation(
-  "mainSpriteset",
+  "playersSet",
   [
     "wizardFemaleWalk1",
     "wizardFemaleWalk2",
@@ -43,7 +42,7 @@ const wizardFemaleWalkAnimation = new Animation(
   6
 );
 const wizardMaleWalkAnimation = new Animation(
-  "mainSpriteset",
+  "playersSet",
   ["wizardMaleWalk1", "wizardMaleWalk2", "wizardMaleWalk3", "wizardMaleWalk4"],
   6
 );
