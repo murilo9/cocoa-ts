@@ -172,6 +172,7 @@ export class Game {
           image = spriteSet.getImage();
           const frameName = sprite.animation.getCurrentFrameName();
           frame = spriteSet.getFrame(frameName);
+          console.log(frame, spriteSet);
         }
         // Save the original state of the context
         this.ctx.save();
