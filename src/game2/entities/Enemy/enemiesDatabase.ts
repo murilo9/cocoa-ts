@@ -35,7 +35,8 @@ export class DarkSorcerer extends Enemy {
       startY,
       enemyData.idleSprite,
       enemyData.animationConfig,
-      "medium"
+      "medium",
+      1
     );
   }
 }
@@ -53,7 +54,8 @@ export class Orc extends Enemy {
       startY,
       enemyData.idleSprite,
       enemyData.animationConfig,
-      "small"
+      "small",
+      1
     );
   }
 }
@@ -71,7 +73,8 @@ export class OrcButcher extends Enemy {
       startY,
       enemyData.idleSprite,
       enemyData.animationConfig,
-      "small"
+      "small",
+      1
     );
   }
 }
@@ -89,7 +92,8 @@ export class OrcWizard extends Enemy {
       startY,
       enemyData.idleSprite,
       enemyData.animationConfig,
-      "small"
+      "small",
+      1
     );
   }
 }

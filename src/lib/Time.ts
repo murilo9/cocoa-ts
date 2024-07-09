@@ -25,7 +25,9 @@ export class Time {
   }
 
   public static setTimeout(callback: () => void, time: number) {
-    this.timeoutListeners[getKey()] = { callback, time };
+    console.log("received function", callback);
+    const key = getKey();
+    this.timeoutListeners[key] = { callback, time };
   }
 
   /**

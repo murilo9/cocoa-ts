@@ -333,7 +333,8 @@ export class Game {
     });
 
     // **** PART 6: Updates Time class ****
-    Time._update(CYCLES_MS);
+    //Time._update(CYCLES_MS);
+    // Commented out due to not receiving parameters as expected ("this" context gets lost)
   }
 
   public static start() {
