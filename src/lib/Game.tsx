@@ -9,6 +9,7 @@ import { Room } from "./Room";
 import { Frame, SpriteSet } from "./SpriteSet";
 import { GameInput } from "./GameInput";
 import { GameUI } from "./GameUI";
+import { Time } from "./Time";
 
 const CYCLES_MS = 20;
 const RENDER_SCALE = 2;
@@ -172,7 +173,6 @@ export class Game {
           image = spriteSet.getImage();
           const frameName = sprite.animation.getCurrentFrameName();
           frame = spriteSet.getFrame(frameName);
-          console.log(frame, spriteSet);
         }
         // Save the original state of the context
         this.ctx.save();
@@ -331,6 +331,9 @@ export class Game {
     this.currentRoom.getEntities().forEach((entity) => {
       entity.afterRun && entity.afterRun();
     });
+
+    // **** PART 6: Updates Time class ****
+    Time._update(CYCLES_MS);
   }
 
   public static start() {
