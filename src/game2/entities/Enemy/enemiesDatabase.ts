@@ -27,8 +27,8 @@ export class DarkSorcerer extends Enemy {
     const enemyData = buildEnemyData(
       "monstersMediumSet",
       "darkSorcererIdle",
-      ["darkSorcererWalk1", "darkSorcererWalk2", "darkSorcererWalk2"],
-      6
+      ["darkSorcererWalk1", "darkSorcererWalk2", "darkSorcererWalk3"],
+      8
     );
     super(
       startX,
@@ -45,8 +45,8 @@ export class Orc extends Enemy {
     const enemyData = buildEnemyData(
       "monstersSmallSet",
       "orcIdle",
-      ["orcWalk1", "orcWalk2", "orcWalk2"],
-      6
+      ["orcWalk1", "orcWalk2", "orcWalk3"],
+      8
     );
     super(
       startX,
@@ -63,8 +63,8 @@ export class OrcButcher extends Enemy {
     const enemyData = buildEnemyData(
       "monstersSmallSet",
       "orcButcherIdle",
-      ["orcButcherWalk1", "orcButcherWalk2", "orcButcherWalk2"],
-      6
+      ["orcButcherWalk1", "orcButcherWalk2", "orcButcherWalk3"],
+      8
     );
     super(
       startX,
@@ -81,8 +81,8 @@ export class OrcWizard extends Enemy {
     const enemyData = buildEnemyData(
       "monstersSmallSet",
       "orcWizardIdle",
-      ["orcWizardWalk1", "orcWizardWalk2", "orcWizardWalk2"],
-      6
+      ["orcWizardWalk1", "orcWizardWalk2", "orcWizardWalk3"],
+      8
     );
     super(
       startX,
