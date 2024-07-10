@@ -202,6 +202,12 @@ const itemsSet = new SpriteSet(itemsImg, {
   chestEmpty: getFrame16x16(4, 6),
 });
 
+const chipSet = new SpriteSet(chipImg, {
+  wall1: getFrame16x16(2, 2),
+  wall2: getFrame16x16(3, 2),
+  wall3: getFrame16x16(4, 2),
+});
+
 const spriteSets: Record<string, SpriteSet> = {
   playersSet,
   monstersSmallSet,
@@ -209,6 +215,7 @@ const spriteSets: Record<string, SpriteSet> = {
   monstersLargeSet,
   weaponsSet,
   itemsSet,
+  chipSet,
 };
 
 /* Function that actually initializes the game (will be called by the React app's useEffect) */

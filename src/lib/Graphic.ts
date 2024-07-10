@@ -22,7 +22,7 @@ export type DrawableArgs = {
   ySpeed?: number;
   drawIndex?: number;
   visible?: boolean;
-  sprite: StaticSpriteConfig | AnimationSpriteConfig;
+  sprite?: StaticSpriteConfig | AnimationSpriteConfig;
   flipX?: boolean;
   flipY?: boolean;
 };
@@ -35,9 +35,9 @@ export class Drawable extends Entity {
   rotation: number;
   xSpeed: number;
   ySpeed: number;
-  flipX?: boolean;
-  flipY?: boolean;
-  sprite: StaticSpriteConfig | AnimationSpriteConfig;
+  flipX: boolean;
+  flipY: boolean;
+  sprite: StaticSpriteConfig | AnimationSpriteConfig | null;
   drawIndex: number;
   visible: boolean;
 
@@ -52,7 +52,7 @@ export class Drawable extends Entity {
     this.ySpeed = arg?.ySpeed || 0;
     this.drawIndex = arg?.drawIndex || 1;
     this.visible = arg?.visible || true;
-    this.sprite = arg.sprite;
+    this.sprite = arg.sprite || null;
     this.flipX = false;
     this.flipY = false;
   }
