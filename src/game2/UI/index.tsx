@@ -1,6 +1,7 @@
 import { Button } from "@mui/joy";
 import { useEffect, useState } from "react";
 import { GameUI } from "../../lib/GameUI";
+import InventoryUI from "./InventoryUI";
 
 export default function UI() {
   const [text, setText] = useState("");
@@ -15,6 +16,7 @@ export default function UI() {
     <>
       <Button>Fancy button</Button>
       <p>{text}</p>
+      <InventoryUI />
     </>
   );
 }

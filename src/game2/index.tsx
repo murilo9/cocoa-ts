@@ -165,12 +165,12 @@ const monstersLargeSet = new SpriteSet(monstersLargeImg, {
 });
 
 const weaponsSet = new SpriteSet(weaponsImg, {
-  dagger: [0, 0, 1 * 16, 12],
+  dagger: [0, 0, 32, 48],
   shortSword: getFrame32x64(3, 1),
   mace: getFrame32x64(4, 2),
   club: getFrame32x64(3, 2),
   hammer: getFrame32x64(2, 2),
-  warHammer: [0 * 16, 12, 1 * 16, 32],
+  warHammer: [32, 24, 64, 64],
   axe: getFrame32x64(3, 6),
   greatSword: getFrame32x64(4, 4),
   bastardSword: getFrame32x64(2, 3),

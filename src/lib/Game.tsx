@@ -33,6 +33,10 @@ export class Game {
   // Screen height in pixels
   private static screenHeight: number;
 
+  public static getSpriteSets() {
+    return this.spriteSets;
+  }
+
   public static getCameraOffsetX() {
     return Camera.x - this.screenWidth / 2;
   }

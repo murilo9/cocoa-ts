@@ -9,6 +9,7 @@ interface InputAxisSetup {
 
 type InputAxisListener = (axis: { x: number; y: number }) => unknown;
 type KeyListener = () => unknown;
+type MouseWheelListener = (direction: "up" | "down") => unknown;
 
 interface InputAxis {
   x: number;
@@ -22,6 +23,7 @@ export class GameInput {
   private static axis2: InputAxis;
   private static keyPressListeners: Dictionary<KeyListener[] | undefined>;
   private static keyReleaseListeners: Dictionary<KeyListener[] | undefined>;
+  private static mouseWheelListeners: MouseWheelListener[];
 
   static handleKeyPress(key: string) {
     // Verifies if axis1 changed
@@ -83,6 +85,12 @@ export class GameInput {
     this.keyReleaseListeners[key]?.forEach((handler) => handler());
   }
 
+  static handleMouseWheel(event: WheelEvent) {
+    this.mouseWheelListeners.forEach((listener) =>
+      listener(event.deltaY < 1 ? "up" : "down")
+    );
+  }
+
   /**
    * Makes sure the axis don't get modular values greater than 1
    */
@@ -127,6 +135,7 @@ export class GameInput {
     };
     this.keyPressListeners = {};
     this.keyReleaseListeners = {};
+    this.mouseWheelListeners = [];
     // Sets up handlers for keyboard event listeners
     window.onkeydown = (event: KeyboardEvent) => {
       if (event.repeat) {
@@ -137,6 +146,9 @@ export class GameInput {
     window.onkeyup = (event: KeyboardEvent) => {
       this.handleKeyRelease(event.code);
     };
+    window.addEventListener("wheel", (event: WheelEvent) =>
+      this.handleMouseWheel(event)
+    );
   }
 
   /**
@@ -166,5 +178,9 @@ export class GameInput {
         this.keyReleaseListeners[key]!.push(listener);
         break;
     }
+  }
+
+  public static addMouseWheelListener(listener: MouseWheelListener) {
+    this.mouseWheelListeners.push(listener);
   }
 }
