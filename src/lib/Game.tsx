@@ -4,7 +4,7 @@ import { Collider, ColliderBody } from "./Collider";
 import { Debug } from "./Debug";
 import { Entity } from "./Entity";
 import { GameConfig } from "./GameConfig";
-import { Drawable, StaticSpriteConfig } from "./Graphic";
+import { Drawable } from "./Graphic";
 import { Room } from "./Room";
 import { Frame, SpriteSet } from "./SpriteSet";
 import { GameInput } from "./GameInput";
@@ -13,7 +13,6 @@ import { Time } from "./Time";
 
 export class Game {
   public static readonly CYCLES_MS = 20;
-  public static readonly RENDER_SCALE = 2;
   // Game's UI element
   private static UI: JSX.Element;
   // HTML canvas element, present inside the #game-canvas element
@@ -86,7 +85,6 @@ export class Game {
     this.canvas.style.background = canvasBackgroundColor;
     document.body.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
-    this.ctx.scale(this.RENDER_SCALE, this.RENDER_SCALE);
     // Sets the initial room as current room
     this.setCurrentRoom(initialRoom);
     // Debug logs the spritesets
@@ -150,7 +148,7 @@ export class Game {
     );
     // For each sorted entity, render it
     sortedGraphicEntities.forEach((entity) => {
-      const { sprite, x, y, xPivot, yPivot, flipX, flipY } = entity;
+      const { sprite, x, y, flipX, flipY } = entity;
       let frame: Frame;
       let spriteSet: SpriteSet;
       let image: HTMLImageElement;
@@ -175,15 +173,13 @@ export class Game {
         }
         // Save the original state of the context
         this.ctx.save();
-        // Translate context according to entity's pivots
-        this.ctx.translate(-xPivot, -yPivot);
         // Prepare the sprite frame to be rendered
         const sx = frame[0];
         const sy = frame[1];
         const sWidth = frame[2] - sx;
         const sHeight = frame[3] - sy;
-        const dx = (x - this.getCameraOffsetX()) / this.RENDER_SCALE;
-        const dy = (y - this.getCameraOffsetY()) / this.RENDER_SCALE;
+        const dx = x - this.getCameraOffsetX();
+        const dy = y - this.getCameraOffsetY();
 
         if (flipX) {
           this.ctx.translate(sWidth, 0);
@@ -206,67 +202,51 @@ export class Game {
           sHeight
         );
 
-        // Revert context translation according to entity's pivots
-        this.ctx.translate(xPivot, yPivot);
-
         this.ctx.restore();
 
         // Display entity drawIndex
         if (this.debug.displayDrawIndexes) {
           this.ctx.fillText(
             "d: " + Math.floor(entity.drawIndex).toString(),
-            (entity.x - this.getCameraOffsetX()) / this.RENDER_SCALE,
-            (entity.y -
-              (sHeight + 24) * this.RENDER_SCALE -
-              this.getCameraOffsetY()) /
-              this.RENDER_SCALE
+            entity.x - this.getCameraOffsetX(),
+            entity.y - (sHeight + 24) - this.getCameraOffsetY()
           );
           this.ctx.fillText(
             "y: " + Math.floor(entity.y).toString(),
-            (entity.x - this.getCameraOffsetX()) / this.RENDER_SCALE,
-            (entity.y -
-              (sHeight + 12) * this.RENDER_SCALE -
-              this.getCameraOffsetY()) /
-              this.RENDER_SCALE
+            entity.x - this.getCameraOffsetX(),
+            entity.y - (sHeight + 12) - this.getCameraOffsetY()
           );
           this.ctx.fillText(
             "p: " + Math.floor(entity.yPivot).toString(),
 
-            (entity.x - this.getCameraOffsetX()) / this.RENDER_SCALE,
-            (entity.y - sHeight * this.RENDER_SCALE - this.getCameraOffsetY()) /
-              this.RENDER_SCALE
+            entity.x - this.getCameraOffsetX(),
+            entity.y - sHeight - this.getCameraOffsetY()
           );
         }
         // Draw green line to outline entity's frame
         if (this.debug.displayPivots) {
-          this.ctx.lineWidth = 1 / this.RENDER_SCALE;
+          this.ctx.lineWidth = 1;
           this.ctx.strokeStyle = "green";
           this.ctx.beginPath();
           this.ctx.moveTo(
-            (entity.x + sWidth * this.RENDER_SCALE - this.getCameraOffsetX()) /
-              this.RENDER_SCALE,
-            (entity.y + sHeight * this.RENDER_SCALE - this.getCameraOffsetY()) /
-              this.RENDER_SCALE
+            entity.x + sWidth - this.getCameraOffsetX(),
+            entity.y + sHeight - this.getCameraOffsetY()
           );
           this.ctx.lineTo(
-            (entity.x - this.getCameraOffsetX()) / this.RENDER_SCALE,
-            (entity.y + sHeight * this.RENDER_SCALE - this.getCameraOffsetY()) /
-              this.RENDER_SCALE
+            entity.x - this.getCameraOffsetX(),
+            entity.y + sHeight - this.getCameraOffsetY()
           );
           this.ctx.lineTo(
-            (entity.x - this.getCameraOffsetX()) / this.RENDER_SCALE,
-            (entity.y - this.getCameraOffsetY()) / this.RENDER_SCALE
+            entity.x - this.getCameraOffsetX(),
+            entity.y - this.getCameraOffsetY()
           );
           this.ctx.lineTo(
-            (entity.x + sWidth * this.RENDER_SCALE - this.getCameraOffsetX()) /
-              this.RENDER_SCALE,
-            (entity.y - this.getCameraOffsetY()) / this.RENDER_SCALE
+            entity.x + sWidth - this.getCameraOffsetX(),
+            entity.y - this.getCameraOffsetY()
           );
           this.ctx.lineTo(
-            (entity.x + sWidth * this.RENDER_SCALE - this.getCameraOffsetX()) /
-              this.RENDER_SCALE,
-            (entity.y + sHeight * this.RENDER_SCALE - this.getCameraOffsetY()) /
-              this.RENDER_SCALE
+            entity.x + sWidth - this.getCameraOffsetX(),
+            entity.y + sHeight - this.getCameraOffsetY()
           );
 
           this.ctx.stroke();
@@ -287,8 +267,6 @@ export class Game {
         entity.y - this.getCameraOffsetY(),
         false
       );
-      // Update collison body scale
-      entity.body.setScale(this.RENDER_SCALE, this.RENDER_SCALE, false);
       // Update collision body rotation
       entity.body.setAngle(entity.rotation, false);
       // Update collison body pivot

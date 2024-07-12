@@ -71,11 +71,8 @@ export class Room {
         if (entityClass) {
           filledMap.push(
             new entityClass({
-              x:
-                gridData.sizeX *
-                (columnIndex + xInitialPos) *
-                Game.RENDER_SCALE,
-              y: gridData.sizeY * (rowIndex + yInitialPos) * Game.RENDER_SCALE,
+              x: gridData.sizeX * (columnIndex + xInitialPos),
+              y: gridData.sizeY * (rowIndex + yInitialPos),
             })
           );
         }

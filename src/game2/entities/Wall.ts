@@ -14,8 +14,6 @@ export class Wall extends Collider {
       spriteSetName: "chipSet",
       frameName: "wall2",
     };
-    this.xPivot = 4;
-    this.yPivot = 16;
     this.drawIndex = this.y + this.yPivot;
   }
 }
