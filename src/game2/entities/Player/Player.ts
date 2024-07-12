@@ -9,8 +9,8 @@ import { playerAnimations } from "./animations";
 const START_POS_X = 0;
 const START_POS_Y = 0;
 const SPEED = 2;
-const X_PIVOT = 8;
-const Y_PIVOT = 32;
+const X_PIVOT = 16;
+const Y_PIVOT = 64;
 
 export class Player extends Collider implements PlayerData {
   gender: PlayerGender = "Male";
@@ -30,7 +30,7 @@ export class Player extends Collider implements PlayerData {
           frameName: "rogueFemaleIdle", // Won't necessarily be the actual sprite
         },
       },
-      new Ellipse({ x: START_POS_X, y: START_POS_Y }, 6, 6)
+      new Ellipse({ x: START_POS_X, y: START_POS_Y }, 16, 16)
     );
     // Initializes the actual sprite
     this.sprite = {

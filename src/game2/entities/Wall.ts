@@ -5,7 +5,7 @@ import { DrawableArgs } from "../../lib/Graphic";
 export class Wall extends Collider {
   constructor(args: DrawableArgs) {
     const { x, y } = args;
-    super(args, new Box({ x, y }, 16, 16, { isStatic: true }));
+    super(args, new Box({ x, y }, 32, 32, { isStatic: true }));
   }
 
   onInit(): void {

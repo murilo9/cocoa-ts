@@ -16,21 +16,21 @@ const getRandomAxisMovement = (vectorSpeed: number) => {
 };
 
 const collisionRadius: Record<EnemySize, number> = {
-  small: 5,
-  medium: 5,
-  large: 8,
+  small: 16,
+  medium: 16,
+  large: 64,
 };
 
 const pivot = {
   x: {
-    small: 8,
-    medium: 8,
-    large: 16,
+    small: 16,
+    medium: 16,
+    large: 32,
   },
   y: {
-    small: 16,
-    medium: 32,
-    large: 64,
+    small: 32,
+    medium: 64,
+    large: 128,
   },
 };
 

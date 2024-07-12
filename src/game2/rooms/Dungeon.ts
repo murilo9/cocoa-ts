@@ -39,7 +39,7 @@ export class Dungeon extends Room {
     };
     this.appendEntities(roomInitialEntities, "environment");
     this.appendEntitiesFromMap(
-      { sizeX: 16, sizeY: 16, xInitialPos: -5, yInitialPos: -5 },
+      { sizeX: 32, sizeY: 32, xInitialPos: -5, yInitialPos: -5 },
       [Wall],
       wallMap,
       "environment"
